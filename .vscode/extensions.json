@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "whtouche.vscode-js-console-utils",
+    "esbenp.prettier-vscode"
+  ]
+}
