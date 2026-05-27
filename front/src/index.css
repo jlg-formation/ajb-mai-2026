@@ -39,3 +39,23 @@ header {
     }
   }
 }
+
+main {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  div.home {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  h1 {
+    text-align: center;
+  }
+}
