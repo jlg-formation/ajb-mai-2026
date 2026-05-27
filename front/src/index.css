@@ -68,12 +68,17 @@ main {
 }
 
 div.content {
-  nav {
-    display: flex;
-    gap: 0.3em;
-  }
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  > div {
+    nav {
+      display: flex;
+      gap: 0.3em;
+    }
 
-  div.error {
-    height: 2em;
+    div.error {
+      height: 2em;
+    }
   }
 }
