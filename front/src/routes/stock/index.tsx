@@ -10,6 +10,11 @@ export const Route = createFileRoute("/stock/")({
   component: RouteComponent,
 });
 
+const articles = [
+  { id: "a1", name: "Tournevis", price: 1.23, qty: 234 },
+  { id: "a2", name: "Pelle", price: 23.99, qty: 6 },
+];
+
 function RouteComponent() {
   return (
     <>
@@ -37,26 +42,13 @@ function RouteComponent() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="name">Tournevis</td>
-                <td className="price">1.23 €</td>
-                <td className="qty">345</td>
-              </tr>
-              <tr>
-                <td className="name">Tournevis</td>
-                <td className="price">1.23 €</td>
-                <td className="qty">345</td>
-              </tr>
-              <tr>
-                <td className="name">Tournevis</td>
-                <td className="price">1.23 €</td>
-                <td className="qty">345</td>
-              </tr>
-              <tr>
-                <td className="name">Tournevis</td>
-                <td className="price">1.23 €</td>
-                <td className="qty">345</td>
-              </tr>
+              {articles.map((a) => (
+                <tr key={a.id}>
+                  <td className="name">{a.name}</td>
+                  <td className="price number">{a.price} €</td>
+                  <td className="qty number">{a.qty}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

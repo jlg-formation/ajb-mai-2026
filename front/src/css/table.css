@@ -27,5 +27,9 @@ table {
     tr.selected {
       background-color: #ccc;
     }
+
+    .number {
+      text-align: right;
+    }
   }
 }
