@@ -1,0 +1,31 @@
+table {
+  td,
+  th {
+    padding: 0.5em 1em;
+  }
+
+  border: 0.1em solid #aaa;
+  border-radius: var(--border-radius);
+  border-spacing: 0;
+  overflow: hidden;
+
+  thead {
+    background-color: #aaa;
+  }
+
+  tbody {
+    cursor: pointer;
+
+    tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    tr.selected {
+      background-color: #ccc;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  max-width: 50ch;
+  margin: 0 auto;
+  gap: 0.5em;
+
+  label {
+    display: flex;
+    flex-flow: column;
+
+    input {
+      padding: 0.5em 1em;
+    }
+  }
+
+  div.error {
+    height: 3em;
+  }
+}

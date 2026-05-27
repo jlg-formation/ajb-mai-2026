@@ -7,6 +7,8 @@ import { routeTree } from "./routeTree.gen";
 
 import "./index.css";
 import "./css/button.css";
+import "./css/table.css";
+import "./css/form.css";
 
 const router = createRouter({
   routeTree,
