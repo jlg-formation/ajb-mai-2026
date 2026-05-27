@@ -5,17 +5,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 
 export const Route = createFileRoute("/stock/")({
   component: RouteComponent,
 });
 
-const articles = [
-  { id: "a1", name: "Tournevis", price: 1.23, qty: 234 },
-  { id: "a2", name: "Pelle", price: 23.99, qty: 6 },
-];
-
 function RouteComponent() {
+  const [articles, setArticles] = useState([
+    { id: "a1", name: "Tournevis", price: 1.23, qty: 234 },
+    { id: "a2", name: "Pelle", price: 23.99, qty: 6 },
+  ]);
   return (
     <>
       <h1>Liste des articles</h1>
