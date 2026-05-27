@@ -1,3 +1,9 @@
+import "./Footer.css";
+
 export default function Footer() {
-  return <p>footer works!</p>;
+  return (
+    <footer>
+      <a href="#">Mentions Légales</a>
+    </footer>
+  );
 }
