@@ -4,18 +4,40 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import type { Article } from "../../types/Article";
 
 export const Route = createFileRoute("/stock/")({
   component: RouteComponent,
 });
 
+const url = "http://localhost:3000/api/articles";
+
+async function fetchArticles() {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("Erreur API");
+  }
+
+  return response.json() as Promise<Article[]>;
+}
+
 function RouteComponent() {
-  const [articles, setArticles] = useState([
-    { id: "a1", name: "Tournevis", price: 1.23, qty: 234 },
-    { id: "a2", name: "Pelle", price: 23.99, qty: 6 },
-  ]);
+  const {
+    data: articles,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["articles"],
+    queryFn: fetchArticles,
+  });
+  // const [articles, setArticles] = useState([
+  //   { id: "a1", name: "Tournevis", price: 1.23, qty: 234 },
+  //   { id: "a2", name: "Pelle", price: 23.99, qty: 6 },
+  // ]);
+
   return (
     <>
       <h1>Liste des articles</h1>
@@ -32,7 +54,7 @@ function RouteComponent() {
               <FontAwesomeIcon icon={faTrashCan} />
             </button>
           </nav>
-          <div className="error"></div>
+          <div className="error">{error ? "Erreur Technique" : ""}</div>
           <table>
             <thead>
               <tr>
@@ -42,13 +64,17 @@ function RouteComponent() {
               </tr>
             </thead>
             <tbody>
-              {articles.map((a) => (
-                <tr key={a.id}>
-                  <td className="name">{a.name}</td>
-                  <td className="price number">{a.price} €</td>
-                  <td className="qty number">{a.qty}</td>
-                </tr>
-              ))}
+              {isLoading ? (
+                <>Chargement...</>
+              ) : (
+                articles?.map((a) => (
+                  <tr key={a.id}>
+                    <td className="name">{a.name}</td>
+                    <td className="price number">{a.price} €</td>
+                    <td className="qty number">{a.qty}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
