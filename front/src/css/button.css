@@ -33,21 +33,21 @@ button {
       background-color: #ccc;
       border-color: #ccc;
     }
-  }
 
-  &.primary {
-    background-color: #333;
-    border-color: #333;
-    color: #eee;
+    &.primary {
+      background-color: #333;
+      border-color: #333;
+      color: #eee;
 
-    &:hover {
-      background-color: #444;
-      border-color: #444;
-    }
+      &:hover {
+        background-color: #444;
+        border-color: #444;
+      }
 
-    &:active {
-      background-color: #555;
-      border-color: #555;
+      &:active {
+        background-color: #555;
+        border-color: #555;
+      }
     }
   }
 }
