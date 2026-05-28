@@ -1,4 +1,5 @@
 import { json, Router } from "express";
+import { randomUUID } from "crypto";
 
 const app = Router();
 
@@ -24,5 +25,11 @@ app.delete("/articles", json(), (req, res) => {
   const ids: string[] = req.body;
   console.log("ids: ", ids);
   articles = articles.filter((a) => !ids.includes(a.id));
+  res.status(204).end();
+});
+
+app.post("/articles", json(), (req, res) => {
+  const newArticle = req.body;
+  articles.push({ ...newArticle, id: randomUUID() });
   res.status(204).end();
 });

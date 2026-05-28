@@ -1,14 +1,34 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
 import type { NewArticle } from "../../types/Article";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/stock/add")({
   component: RouteComponent,
 });
 
+const url = "http://localhost:3000/api/articles";
+
+const addArticles = async (newArticle: NewArticle) => {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newArticle),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erreur API");
+  }
+
+  return Promise.resolve();
+};
+
 function RouteComponent() {
+  const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
       name: "Truc",
@@ -18,9 +38,24 @@ function RouteComponent() {
     onSubmit: async ({ value }) => {
       console.log(value);
 
-      await new Promise((r) => setTimeout(r, 500));
+      mutation.mutate(value);
 
       console.log("fini la soumission");
+    },
+  });
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: addArticles,
+    onSuccess: () => {
+      // refresh automatique
+      queryClient.invalidateQueries({
+        queryKey: ["articles"],
+      });
+      navigate({
+        to: "/stock",
+      });
     },
   });
 
