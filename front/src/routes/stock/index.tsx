@@ -5,7 +5,7 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { Article } from "../../types/Article";
 import { useState } from "react";
@@ -55,8 +55,16 @@ function RouteComponent() {
     retry: false,
   });
 
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: deleteArticles,
+    onSuccess: () => {
+      // refresh automatique
+      queryClient.invalidateQueries({
+        queryKey: ["articles"],
+      });
+    },
   });
 
   const [selectedArticleIds, setselectedArticleIds] = useState(
