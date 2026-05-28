@@ -45,6 +45,10 @@ const deleteArticles = async (ids: Set<Article["id"]>) => {
 };
 
 function RouteComponent() {
+  const [selectedArticleIds, setselectedArticleIds] = useState(
+    new Set<Article["id"]>(),
+  );
+
   const {
     data: articles,
     isLoading,
@@ -68,9 +72,7 @@ function RouteComponent() {
     },
   });
 
-  const [selectedArticleIds, setselectedArticleIds] = useState(
-    new Set<Article["id"]>(),
-  );
+  //////////////////
 
   const handleSelect = (id: Article["id"]) => {
     console.log("id: ", id);
