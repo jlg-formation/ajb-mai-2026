@@ -1,4 +1,5 @@
 import {
+  faCircleNotch,
   faPlus,
   faRotateRight,
   faTrashCan,
@@ -32,6 +33,7 @@ function RouteComponent() {
   } = useQuery({
     queryKey: ["articles"],
     queryFn: fetchArticles,
+    retry: false,
   });
   // const [articles, setArticles] = useState([
   //   { id: "a1", name: "Tournevis", price: 1.23, qty: 234 },
@@ -65,7 +67,14 @@ function RouteComponent() {
             </thead>
             <tbody>
               {isLoading ? (
-                <>Chargement...</>
+                <tr>
+                  <td colSpan={3}>
+                    <div className="loading">
+                      <FontAwesomeIcon icon={faCircleNotch} spin={true} />
+                      <span>Chargement...</span>
+                    </div>
+                  </td>
+                </tr>
               ) : (
                 articles?.map((a) => (
                   <tr key={a.id}>
