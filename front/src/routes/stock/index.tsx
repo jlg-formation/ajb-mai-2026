@@ -90,13 +90,19 @@ function RouteComponent() {
     mutation.mutate(selectedArticleIds);
   };
 
+  const handleRefresh = () => {
+    queryClient.invalidateQueries({
+      queryKey: ["articles"],
+    });
+  };
+
   return (
     <>
       <h1>Liste des articles</h1>
       <div className="content">
         <div>
           <nav>
-            <button title="Rafraîchir">
+            <button title="Rafraîchir" onClick={() => handleRefresh()}>
               <FontAwesomeIcon icon={faRotateRight} />
             </button>
             <Link title="Rafraîchir" to="/stock/add" className="button">
