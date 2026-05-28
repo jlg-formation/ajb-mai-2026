@@ -10,12 +10,12 @@ let articles = [
   { id: "a2", name: "Pelle", price: 23.99, qty: 6 },
 ];
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "*");
-  res.setHeader("Access-Control-Allow-Headers", "*");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "*");
+//   res.setHeader("Access-Control-Allow-Headers", "*");
+//   next();
+// });
 
 app.get("/articles", (req, res) => {
   res.json(articles);

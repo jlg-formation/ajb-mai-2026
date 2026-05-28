@@ -9,7 +9,7 @@ export const Route = createFileRoute("/stock/add")({
   component: RouteComponent,
 });
 
-const url = "http://localhost:3000/api/articles";
+const url = "/api/articles";
 
 const addArticles = async (newArticle: NewArticle) => {
   const response = await fetch(url, {
