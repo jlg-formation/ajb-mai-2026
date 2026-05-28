@@ -1,8 +1,15 @@
-console.log("About to start a server...");
+import express from "express";
+import serveIndex from "serve-index";
+import api from "./api";
+const app = express();
+const port = 3000;
+const publicDir = ".";
 
-import { readdirSync } from "fs";
-import api from "./api.js";
-console.log("api: ", api);
+app.use("/api", api);
 
-const files = readdirSync(".");
-console.log("files: ", files);
+app.use(express.static(publicDir));
+app.use(serveIndex(publicDir, { icons: true }));
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});

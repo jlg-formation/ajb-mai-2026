@@ -35,10 +35,6 @@ function RouteComponent() {
     queryFn: fetchArticles,
     retry: false,
   });
-  // const [articles, setArticles] = useState([
-  //   { id: "a1", name: "Tournevis", price: 1.23, qty: 234 },
-  //   { id: "a2", name: "Pelle", price: 23.99, qty: 6 },
-  // ]);
 
   return (
     <>
