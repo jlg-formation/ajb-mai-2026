@@ -64,9 +64,11 @@ function RouteComponent() {
             <Link title="Rafraîchir" to="/stock/add" className="button">
               <FontAwesomeIcon icon={faPlus} />
             </Link>
-            <button title="Supprimer">
-              <FontAwesomeIcon icon={faTrashCan} />
-            </button>
+            {selectedArticleIds.size > 0 && (
+              <button title="Supprimer">
+                <FontAwesomeIcon icon={faTrashCan} />
+              </button>
+            )}
           </nav>
           <div className="error">{error ? "Erreur Technique" : ""}</div>
           <table>
