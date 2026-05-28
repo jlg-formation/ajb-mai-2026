@@ -64,6 +64,7 @@ function RouteComponent() {
       queryClient.invalidateQueries({
         queryKey: ["articles"],
       });
+      setselectedArticleIds(new Set());
     },
   });
 
