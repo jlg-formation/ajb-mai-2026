@@ -5,7 +5,7 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { Article } from "../../types/Article";
 import { useState } from "react";
@@ -26,6 +26,24 @@ async function fetchArticles() {
   return response.json() as Promise<Article[]>;
 }
 
+const deleteArticles = async (ids: Set<Article["id"]>) => {
+  const body = JSON.stringify([...ids]);
+  console.log("body: ", body);
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body,
+  });
+
+  if (!response.ok) {
+    throw new Error("Erreur API");
+  }
+
+  return Promise.resolve();
+};
+
 function RouteComponent() {
   const {
     data: articles,
@@ -35,6 +53,10 @@ function RouteComponent() {
     queryKey: ["articles"],
     queryFn: fetchArticles,
     retry: false,
+  });
+
+  const mutation = useMutation({
+    mutationFn: deleteArticles,
   });
 
   const [selectedArticleIds, setselectedArticleIds] = useState(
@@ -52,6 +74,11 @@ function RouteComponent() {
     setselectedArticleIds(new Set(selectedArticleIds));
   };
 
+  const handleDelete = () => {
+    console.log("delete");
+    mutation.mutate(selectedArticleIds);
+  };
+
   return (
     <>
       <h1>Liste des articles</h1>
@@ -65,7 +92,7 @@ function RouteComponent() {
               <FontAwesomeIcon icon={faPlus} />
             </Link>
             {selectedArticleIds.size > 0 && (
-              <button title="Supprimer">
+              <button title="Supprimer" onClick={() => handleDelete()}>
                 <FontAwesomeIcon icon={faTrashCan} />
               </button>
             )}
