@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { Article } from "../../types/Article";
+import { useState } from "react";
 
 export const Route = createFileRoute("/stock/")({
   component: RouteComponent,
@@ -35,6 +36,21 @@ function RouteComponent() {
     queryFn: fetchArticles,
     retry: false,
   });
+
+  const [selectedArticleIds, setselectedArticleIds] = useState(
+    new Set<Article["id"]>(),
+  );
+
+  const handleSelect = (id: Article["id"]) => {
+    console.log("id: ", id);
+    if (selectedArticleIds.has(id)) {
+      selectedArticleIds.delete(id);
+      setselectedArticleIds(new Set(selectedArticleIds));
+      return;
+    }
+    selectedArticleIds.add(id);
+    setselectedArticleIds(new Set(selectedArticleIds));
+  };
 
   return (
     <>
@@ -73,7 +89,11 @@ function RouteComponent() {
                 </tr>
               ) : (
                 articles?.map((a) => (
-                  <tr key={a.id}>
+                  <tr
+                    key={a.id}
+                    onClick={() => handleSelect(a.id)}
+                    className={selectedArticleIds.has(a.id) ? "selected" : ""}
+                  >
                     <td className="name">{a.name}</td>
                     <td className="price number">{a.price} €</td>
                     <td className="qty number">{a.qty}</td>
